@@ -2,6 +2,7 @@
 source "http://rubygems.org"
 
 gem "sinatra"
+gem "sinatra_warden"
 gem "redis"
 gem "SystemTimer"
 gem "rmagick"

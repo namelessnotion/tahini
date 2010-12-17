@@ -8,14 +8,13 @@ require 'rack/test'
 Rspec.configure do |config|
   config.mock_with :rspec
   config.include Rack::Test::Methods
-
   def app
-    Sinatra::Application
+    TahiniServer
   end
+  app.set :environment, :test
 end
 
 
 # Set the Sinatra environment
-set :environment, :test
 
 # Add an app method for RSpec

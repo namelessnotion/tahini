@@ -8,40 +8,56 @@ RMAGICK_BYPASS_VERSION_TEST = true
 require 'RMagick'
 
 require 'sinatra'
+#require 'sinatra_warden'
+require 'warden'
 
-configure :development do
-  use Rack::Reloader
-end
+require 'lib/sinatra/warden/helper'
 
-get '/:bucket/:filename.css' do
+class TahiniServer < Sinatra::Base
 
-end
+  register Sinatra::Warden
+    
+  use Warden::Manager do |manager|
+    manager.default_strategies :token
+    manager.failure_app = TahiniServer
+  end
+  
+  post '/unauthenticated/?' do
+    status 401
+    warden.custom_failure! if warden.config.failure_app == self.class
+    env['x-rack.flash'][:error] = options.auth_error_message if defined?(Rack::Flash)
+    "access denied"
+  end
+  
+  get '/:bucket/:filename.css' do
 
-get '/:bucket/:filename.json' do
- #key value pairs in json format
-end
+  end
 
-#post here to create a css
-# bucket
-# name
-# key => value pairs
-# images with verification
-#on success redirect to get /bucket/name.json
-#on error report problem
+  get '/:bucket/:filename.json' do
+   #key value pairs in json format
+  end
 
-before do
-  #authenticate
-end
+  #post here to create a css
+  # bucket
+  # name
+  # key => value pairs
+  # images with verification
+  #on success redirect to get /bucket/name.json
+  #on error report problem
 
-get '/' do
-  "tahini is tasty!"
-end
 
-post '/' do
-end
+  get '/' do
+    "tahini is tasty!"
+  end
 
-get '/stats.json' do
-  #number of buckets
-  #number of files
-  #storage used on s3
+  post '/' do
+    authenticate
+    "mmm tahini"
+  end
+
+  get '/stats.json' do
+    #number of buckets
+    #number of files
+    #storage used on s3
+  end
 end
