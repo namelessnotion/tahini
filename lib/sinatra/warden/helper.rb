@@ -11,7 +11,7 @@ Warden::Strategies.add(:token) do
   end
 
   def authenticate!
-    token = "q1w2e3r4"
+    token = Tahini::Config.instance.token
     authed = false
     authed = (request.env['X-Tahini-Token'] == token unless request.env['X-Tahini-Token'].nil?)
     authed = (params['tahini_token'] == token)
