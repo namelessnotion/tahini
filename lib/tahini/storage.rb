@@ -27,5 +27,18 @@ module Tahini
     def if_not_a_file
       Proc.new { |key, value| !value.is_a?(Hash) || value[:tempfile].nil? || value[:filename].nil? }
     end
+    
+    def get
+      @key_value_store.get
+    end
+    
+    def delete
+      @key_value_store.delete
+    end
+    
+    def delete(key)
+      @key_value_store.delete(key)
+    end
+    
   end
 end

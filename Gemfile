@@ -9,6 +9,7 @@ gem "SystemTimer"
 gem "rmagick"
 gem "aws-s3", :require => "aws/s3"
 gem "json"
+gem "haml"
 
 group :test do
   gem "rest-client", :require => "rest_client"
