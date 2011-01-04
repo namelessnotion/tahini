@@ -1,5 +1,49 @@
-.personalized a {
+.contest_entry_media a,
+.contest_entry_tags a,
+.contest_entry_description a,
+.contest_entry_sidebar a
+ {
 	<% if !self['link_color'].empty? %>
 	color: <%= self['link_color'] %>
+	<% end %>
+}
+
+.contest_entry_sidebar
+{
+	<% if !self['sidebar_color'].empty? %>
+	background-color: <%= self['sidebar_color'] %>
+	<% end %>
+}
+
+#above_the_fold {
+	<% if !self['background_color'].empty? %>
+	background-color: <%= self['background_color'] %>;
+	<% end %>
+	<% if !self['text_color'].empty? %>
+	color: <%= self['text_color'] %>;
+	<% end %>
+	<% if !self['background_image'].empty? %>
+	background-image: url('<%= self['background_image'] %>');
+	<% end %>
+	<% if self['background_image_tile'].nil? %>
+	background-repeat: no-repeat;
+	<% end %> 
+}
+
+.profile a,
+div.tile div.body a {
+	<% if !self['link_color'].empty? %>
+	color: <%= self['link_color'] %>;
+	<% end %>
+}
+
+
+.profile div.tile div.body,
+.profile {
+	<% if !self['background_color'].empty? %>
+	background-color: <%= self['background_color'] %>;
+	<% end %>
+	<% if !self['text_color'].empty? %>
+	color: <%= self['text_color'] %>;
 	<% end %>
 }
